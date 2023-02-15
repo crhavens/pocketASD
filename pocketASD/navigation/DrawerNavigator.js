@@ -6,12 +6,12 @@ import ProfileScreen from '../screens/ProfileScreen';
 const Drawer = createDrawerNavigator();
 
 const MainDrawerNavigator = () => {
-    return (
-        <Drawer.Navigator>
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Profile" component={ProfileScreen} />
-        </Drawer.Navigator>
-    )
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
+    </Drawer.Navigator>
+  )
 }
 
 export { MainDrawerNavigator }
