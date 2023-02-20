@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-const ProfileScreen = () => {
+const ScreenerScreen = () => {
   return (
     <View>
       <Text>Screener</Text>
@@ -8,4 +8,4 @@ const ProfileScreen = () => {
   )
 }
 
-export default ProfileScreen
+export default ScreenerScreen
