@@ -19,7 +19,9 @@ import {
 
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';  
-import ScreenerScreen from '../screens/ScreenerScreen'
+import ScreenerScreen from '../screens/ScreenerScreen';
+import SchedulingScreen from '../screens/SchedulingScreen';
+import ResourcesScreen from '../screens/ResourcesScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -96,6 +98,42 @@ const MainDrawerNavigator = () => {
                         />
                     )
                 }}
+            />
+            <Drawer.Screen
+                name = "Scheduling"
+                component={SchedulingScreen}
+                // options = {{
+                //     drawerIcon: ({focused, size}) => (
+                //         <Icon
+                //             name="home"
+                //             size={size}
+                //             color = {focused ? '#078279' : 'black'}
+                //             style = {{
+                //                 alignSelf: "center",
+                //                 position: "absolute",
+                //                 right: 5,
+                //             }}
+                //         />
+                //     )
+                // }}
+            />
+            <Drawer.Screen
+                name = "Resources"
+                component={ResourcesScreen}
+                // options = {{
+                //     drawerIcon: ({focused, size}) => (
+                //         <Icon
+                //             name="home"
+                //             size={size}
+                //             color = {focused ? '#078279' : 'black'}
+                //             style = {{
+                //                 alignSelf: "center",
+                //                 position: "absolute",
+                //                 right: 5,
+                //             }}
+                //         />
+                //     )
+                // }}
             />
         </Drawer.Navigator>
     )
