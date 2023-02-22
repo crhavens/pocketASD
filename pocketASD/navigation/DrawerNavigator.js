@@ -2,11 +2,6 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {
-  SafeAreaView,
-  View,
-  StyleSheet,
-  Image,
-  Text,
   Linking,
 } from 'react-native';
 
@@ -19,7 +14,7 @@ import {
 
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import ScreenerScreen from '../screens/ScreenerScreen'
+import { ScreenerNavigator } from './ScreenerNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -81,7 +76,7 @@ const MainDrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Screener"
-        component={ScreenerScreen}
+        component={ScreenerNavigator}
         options={{
           drawerIcon: ({ focused, size }) => (
             <Icon
