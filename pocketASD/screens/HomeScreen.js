@@ -12,10 +12,10 @@ const HomeScreen = () => {
 
   const handleSignOut = () => {
     auth.signOut()
-    .then(() => {
-      navigation.replace("Login")
-    })
-    .catch(error => alert(error.message))
+      .then(() => {
+        navigation.replace("Login")
+      })
+      .catch(error => alert(error.message))
   }
 
   const addUser = async () => {
