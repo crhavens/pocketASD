@@ -94,45 +94,47 @@ const MainDrawerNavigator = () => {
                 right: 5,
               }}
             />
-            
-            <Drawer.Screen
-                name = "Scheduling"
-                component={SchedulingScreen}
-                // options = {{
-                //     drawerIcon: ({focused, size}) => (
-                //         <Icon
-                //             name="home"
-                //             size={size}
-                //             color = {focused ? '#078279' : 'black'}
-                //             style = {{
-                //                 alignSelf: "center",
-                //                 position: "absolute",
-                //                 right: 5,
-                //             }}
-                //         />
-                //     )
-                // }}
-            />
-            <Drawer.Screen
-                name = "Resources"
-                component={ResourcesScreen}
-                // options = {{
-                //     drawerIcon: ({focused, size}) => (
-                //         <Icon
-                //             name="home"
-                //             size={size}
-                //             color = {focused ? '#078279' : 'black'}
-                //             style = {{
-                //                 alignSelf: "center",
-                //                 position: "absolute",
-                //                 right: 5,
-                //             }}
-                //         />
-                //     )
-                // }}
-            />
-        </Drawer.Navigator>
-    )
+          )
+        }}
+      />
+      <Drawer.Screen
+        name = "Scheduling"
+        component={SchedulingScreen}
+        options = {{
+            drawerIcon: ({focused, size}) => (
+                <Icon
+                    name="question"
+                    size={size}
+                    color = {focused ? '#078279' : 'black'}
+                    style = {{
+                      alignSelf: "center",
+                      position: "absolute",
+                      right: 5,
+                    }}
+                />
+            )
+        }}
+      />
+      <Drawer.Screen
+        name = "Resources"
+        component={ResourcesScreen}
+        options = {{
+            drawerIcon: ({focused, size}) => (
+                <Icon
+                    name="question"
+                    size={size}
+                    color = {focused ? '#078279' : 'black'}
+                    style = {{
+                      alignSelf: "center",
+                      position: "absolute",
+                      right: 5,
+                    }}
+                />
+            )
+        }}
+      />
+    </Drawer.Navigator>
+  )
 }
 
 export { MainDrawerNavigator }

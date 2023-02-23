@@ -36,7 +36,7 @@ export default ResourcesScreen
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
+    flex: 1,
   },
 }
 )
