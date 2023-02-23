@@ -1,0 +1,11 @@
+.userList { 
+  background-color: #03a;
+  height: 500px;
+}
+
+ .grid-item {
+  border: 2px;
+  border-style: solid;
+  border-color: red;
+  width: 100%;
+}
