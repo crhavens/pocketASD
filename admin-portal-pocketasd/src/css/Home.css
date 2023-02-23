@@ -1,0 +1,11 @@
+.grid-item {
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+  width: 100%;
+}
+
+.colorBlue {
+  background-color: #03a;
+  height: 30px;
+}
