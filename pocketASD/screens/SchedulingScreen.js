@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button} from "react-native" ;
-import {Calendar} from 'react-native-calendars';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button } from "react-native" ;
+import { Calendar } from 'react-native-calendars';
 
 const SchedulingScreen = () => {
 
@@ -30,12 +30,12 @@ const SchedulingScreen = () => {
   return (
     <View style={styles.container}>
     	<Calendar 
-      minDate={today}
-      onDayPress={date => {
-        //console.log(date.dateString);
-        updateSelectedDates(date.dateString);
-      }}
-      markedDates={markedDates}
+        minDate={today}
+        onDayPress={date => {
+          //console.log(date.dateString);
+          updateSelectedDates(date.dateString);
+        }}
+        markedDates={markedDates}
       />
       <Button onPress={confirmDates} title="Confirm Dates"/>
   	</View>
@@ -46,7 +46,7 @@ export default SchedulingScreen
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
+    flex: 1,
   },
 }
 )
