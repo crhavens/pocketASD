@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'black',
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontSize: 32,
     fontStyle: 'italic',
     fontFamily: 'Georgia',
