@@ -19,23 +19,14 @@ const HomeScreen = () => {
   }
 
   const addUser = async () => {
-    /*async function addUser() {
-  try {
-    const docRef = await addDoc(collection(db, "users"), {
-      email: auth.currentUser?.email,
-      password: auth.currentUser?.password,
-      random: "hello world"
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.log("Error adding document: ", e);
-  }
-}*/
     try {
       console.log(auth.currentUser.uid);
       const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
         email: auth.currentUser?.email,
         random: "hello world!",
+      },
+      {
+        merge: true
       });
       console.log("Document written successfully");
     } catch(e) {
