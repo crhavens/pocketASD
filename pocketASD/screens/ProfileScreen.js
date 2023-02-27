@@ -19,15 +19,15 @@ const ProfileScreen = () => {
   const handleFormUpdate = async () => {
     try {
       const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
-        firstName: {firstName},
-        lastName: {lastName},
-        birthDay: {birthDay},
-        gender: {gender},
-        email: {email},
-        mailing: {mailing},
-        provider: {provider},
-        medicalCenter: {medicalCenter},
-        guardian: {guardian},
+        firstName: firstName,
+        lastName: lastName,
+        birthDay: birthDay,
+        gender: gender,
+        email: email,
+        mailing: mailing,
+        provider: provider,
+        medicalCenter: medicalCenter,
+        guardian: guardian,
       },
       {
         merge: true
