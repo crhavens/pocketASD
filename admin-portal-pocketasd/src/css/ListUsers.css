@@ -1,0 +1,17 @@
+.userList { 
+  background-color: #03a;
+  height: 500px;
+}
+
+ul {
+ margin: 0; 
+ padding: 0;
+ width: '100%';
+ list-style: none;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
