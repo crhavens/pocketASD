@@ -3,38 +3,36 @@ import { Grid } from "@material-ui/core"
 import '../css/ListUsers.css'
 import UserListItem from './UserListItem.js'
 import { db } from '../firebase'
-import { collection, documentId, getDocs, query, where } from "firebase/firestore"
+import { collection, documentId, getDocs, onSnapshot, query, where } from "firebase/firestore"
 
 export default function ListUsers() {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    fetchUserData()
+    const userCollectionRef = query(collection(db, 'users'), where(documentId(), "!=", "default"))
+    const unsubscribe = onSnapshot(userCollectionRef, (snapshot) => {
+      const documents = []
+
+      snapshot.forEach((doc) => {
+        documents.push(doc)
+      })
+
+      const usr = documents.map(item => ({
+        data: item.data(),
+        id: item.id,
+      }))
+      setUsers(usr)
+    }, (error) => {
+      console.log(error)
+    }) 
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     console.log(users)
   }, [users])
-
-  async function fetchUserData() {
-    const userCollectionRef = query(collection(db, 'users'), where(documentId(), "!=", "default"))
-    getDocs(userCollectionRef)
-      .then(response => {
-        const usr = response.docs.map(doc => ({
-          data: doc.data(),
-          id: doc.id,
-        }))
-        setUsers(usr)
-      })
-      .catch(error => console.log(error.message))
   
-    /*
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      setUsers(...users, doc)
-    })*/
-  }
-
   return (
     <div className="userList">
       <ul>
