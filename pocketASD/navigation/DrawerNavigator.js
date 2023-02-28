@@ -103,7 +103,7 @@ const MainDrawerNavigator = () => {
         options = {{
             drawerIcon: ({focused, size}) => (
                 <Icon
-                    name="question"
+                    name="calendar"
                     size={size}
                     color = {focused ? '#078279' : 'black'}
                     style = {{
@@ -121,7 +121,7 @@ const MainDrawerNavigator = () => {
         options = {{
             drawerIcon: ({focused, size}) => (
                 <Icon
-                    name="question"
+                    name="hands-helping"
                     size={size}
                     color = {focused ? '#078279' : 'black'}
                     style = {{
