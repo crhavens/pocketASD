@@ -1,5 +1,6 @@
-import '../css/navbar.css';
 import { Link, useMatch, useResolvedPath } from "react-router-dom"
+
+import '../css/navbar.css';
 
 export default function Navbar() {
   const path = window.location.pathname

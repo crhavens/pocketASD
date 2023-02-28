@@ -1,5 +1,6 @@
-import '../css/Home.css'
 import { Grid } from "@material-ui/core"
+
+import '../css/Home.css'
 
 
 export default function Home() {

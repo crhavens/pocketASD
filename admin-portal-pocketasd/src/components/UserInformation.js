@@ -1,5 +1,6 @@
-import { Grid } from "@material-ui/core"
-import ListUsers from "./ListUsers.js"
+import { Grid } from '@material-ui/core'
+
+import ListUsers from './ListUsers'
 import '../css/UserInformation.css'
 
 export default function UserInformation() {

@@ -1,6 +1,7 @@
-import { Grid } from "@material-ui/core"
+import { Grid } from '@material-ui/core'
+import React from 'react'
+
 import '../css/UserListItem.css'
-import React from "react"
 
 export default function UserListItem( data ) {
   return (
