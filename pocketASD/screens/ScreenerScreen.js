@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Linking,
-  TouchableOpacity
-} from "react-native";
+import { View, Text, StyleSheet, Linking, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native'
 
 const ScreenerScreen = () => {
