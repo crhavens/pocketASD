@@ -6,7 +6,7 @@ export default function Navbar() {
   const path = window.location.pathname
   return <nav className="nav">
     <Link to="/" className="site-title">
-      Site Name
+      PocketASD
     </Link>
     <ul>
       <CustomLink to="/appointments">Appointments</CustomLink>
@@ -21,7 +21,7 @@ function CustomLink({ to, children, ...props } ) {
 
   return (
     <li className={isActive ? "active" : ""}>
-      <Link to={to}>{children}</Link>
+      <Link to={to} className="tabs">{children}</Link>
     </li>
   )
 }

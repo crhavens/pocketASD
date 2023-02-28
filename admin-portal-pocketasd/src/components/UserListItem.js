@@ -6,13 +6,11 @@ import '../css/UserListItem.css'
 export default function UserListItem( data ) {
   return (
     <Grid container className="grid">
-      <Grid container item xs={1}/>
       <Grid container item xs={3}>
         <div className="avatar">
           <p>profile picture</p>
         </div>
       </Grid>
-      <Grid container item xs={1}/>
       <Grid container item xs={6}>
         <Grid container>
           <Grid container item xs={12}>
