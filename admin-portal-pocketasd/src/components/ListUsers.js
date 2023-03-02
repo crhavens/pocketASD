@@ -33,26 +33,16 @@ export default function ListUsers() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users])
-
   const handleSearch = (event) => {
     const getSearch = event.target.value;
     setSearchQuery(getSearch);
 
-    console.log("logging")
-    console.log(users)
-    console.log(filterData)
-
-    if (getSearch.length > 0) {
-      const searchData = users.filter((item) => item.data.lastName.toLowerCase().includes(getSearch.toLowerCase()));
-      setUsers(searchData);
+    if (getSearch.length > 0) {      
+      const searchData = filterData.filter((item) => item.data.lastName.toLowerCase().includes(getSearch.toLowerCase()));
+      setFilterData(searchData);
     } else {
-      setUsers(filterData);
+      setFilterData(users);
     }
-
-
   }
   
   return (
@@ -62,7 +52,7 @@ export default function ListUsers() {
       </div>
       <div>
         <ul>
-          {users.map(user => (
+          {filterData.map(user => (
             <li key={user.id}>
               <UserListItem data={user.data}/>
             </li>
