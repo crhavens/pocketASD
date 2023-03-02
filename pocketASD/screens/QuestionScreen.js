@@ -67,7 +67,7 @@ const QuestionScreen = () => {
           </Text>
         </Pressable>
       </View>
-        <View style={{marginBottom:30}}>
+      <View style={{marginBottom:30}}>
         <TouchableOpacity
           style={
             answers[index]!=='null' ? styles.confirmButtonGreen : styles.confirmButtonGray
@@ -81,9 +81,7 @@ const QuestionScreen = () => {
             }
           }}
         >
-          <Text
-            style={styles.confirmButtonText}
-          >
+          <Text style={styles.confirmButtonText}>
             Continue
           </Text>
         </TouchableOpacity>

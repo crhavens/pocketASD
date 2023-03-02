@@ -88,14 +88,6 @@ export default [
     }
   },
   {
-    question: "When you smile at your child, does he or she smile back at you?",
-    options:
-    {
-      "Yes": 1,
-      "No": 0
-    }
-  },
-  {
     question: "Does your child get upset by everyday noises?\n\n(For Example, does your child scream or cry to noise such as a vacuum cleaner or loud music?)",
     options:
     {

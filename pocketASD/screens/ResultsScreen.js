@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native'
 import questions from '../data/questions'
+import results from '../data/results'
 
 const ResultsScreen = ({ route }) => {
   const navigation = useNavigation()
@@ -23,32 +24,49 @@ const ResultsScreen = ({ route }) => {
     }
   }
 
-  return (
-    <View style={{padding:10}}>
-      <Text
-        style={{
-          fontSize: 30,
-          fontWeight:'bold',
-          padding:10
-        }}
-      >
-      Your results: {score}
-      </Text>
-      
-      <Text>
-        
-      </Text>
+  var result_text
+  if(score >= 8) {
+    result_text = results.High
+  }
+  else if(score >= 3) {
+    result_text = results.Moderate
+  }
+  else {
+    result_text = results.Low
+  }
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-            navigation.navigate('Question')
-        }}
-      >
-        <Text style={styles.buttonText}>
-          Edit your answers
+  return (
+    <View style={{flex:1, padding:10}}>
+      <View>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight:'bold',
+            padding:10
+          }}
+        >
+          Your results: {score}
         </Text>
-      </TouchableOpacity>
+        <Text style={{fontSize:20, padding:10}}>
+          
+          {result_text}
+        </Text>
+      </View>
+      <View>
+        <Text
+          style = {{
+            padding: 10,
+            fontSize: 16,
+            textDecorationLine:"underline",
+            justifyContent:'center'
+          }}
+          onPress={() => {
+              navigation.navigate('Question')
+          }}
+        >
+            Edit your answers
+        </Text>
+      </View>
      </View>
   )
 }

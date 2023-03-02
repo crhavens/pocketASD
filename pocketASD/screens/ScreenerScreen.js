@@ -26,6 +26,8 @@ const ScreenerScreen = () => {
         {"\n\n"}
         Taking the screener results in a score that indicates whether further evaluation is needed.
         {"\n\n"}
+        Note: This screener does not serve in the place of a formal diagnosis by a doctor.
+        {"\n\n"}
         <Text style={{
             textDecorationLine:"underline",
         }}
@@ -34,7 +36,7 @@ const ScreenerScreen = () => {
           Tap here for more about M-Chat-R™
         </Text>
       </Text>
-
+          
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Question')}
@@ -44,6 +46,7 @@ const ScreenerScreen = () => {
         </Text>
       </TouchableOpacity>
     </View>
+    
   )
 }
 
