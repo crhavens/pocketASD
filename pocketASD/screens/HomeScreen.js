@@ -3,7 +3,7 @@ import React from 'react'
 import { auth, db } from '../firebase'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { async } from '@firebase/util'
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, setDoc, doc } from "firebase/firestore"
 
 // https://www.youtube.com/watch?v=ql4J6SpLXZA
 const HomeScreen = () => {
@@ -19,24 +19,16 @@ const HomeScreen = () => {
   }
 
   const addUser = async () => {
-    /*async function addUser() {
-  try {
-    const docRef = await addDoc(collection(db, "users"), {
-      email: auth.currentUser?.email,
-      password: auth.currentUser?.password,
-      random: "hello world"
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.log("Error adding document: ", e);
-  }
-}*/
     try {
-      const docRef = await addDoc(collection(db, "users"), {
+      console.log(auth.currentUser.uid);
+      const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
         email: auth.currentUser?.email,
-        random: "hello world"
+        random: "hello world!",
+      },
+      {
+        merge: true
       });
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written successfully");
     } catch(e) {
       console.log("Error adding document: ", e);
     }

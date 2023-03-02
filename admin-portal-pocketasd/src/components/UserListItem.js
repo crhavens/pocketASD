@@ -1,23 +1,23 @@
-import { Grid } from "@material-ui/core"
-import '../css/AdminListItem.css'
+import { Grid } from '@material-ui/core'
+import React from 'react'
 
-export default function AdminListItem() {
+import '../css/UserListItem.css'
+
+export default function UserListItem( data ) {
   return (
     <Grid container className="grid">
-      <Grid container item xs={1}/>
       <Grid container item xs={3}>
         <div className="avatar">
-          <text>profile picture</text>
+          <p>profile picture</p>
         </div>
       </Grid>
-      <Grid container item xs={1}/>
       <Grid container item xs={6}>
         <Grid container>
           <Grid container item xs={12}>
-            <text className="fullNameText">FULL NAME</text>
+            <p className="fullNameText" placeholder="first name">{data.data.firstName + " " + data.data.lastName}</p>
           </Grid>
           <Grid container item xs={12}>
-            <text className="emailText">EMAIL</text>
+            <p className="emailText">{data.data.email}</p>
           </Grid>
         </Grid>
       </Grid>

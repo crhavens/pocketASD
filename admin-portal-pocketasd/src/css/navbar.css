@@ -11,13 +11,9 @@ body {
   color: white;
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: center;
   gap: 2rem;
   padding: 0 1rem;
-}
-
-.site-title {
-  font-size: 2rem;
 }
 
 .nav ul {
@@ -37,11 +33,24 @@ body {
   padding: .25rem;
 }
 
+.nav .site-title {
+  font-size: 2rem;
+  color: white;
+}
+
+.nav li {
+  border-radius: 10px;
+  height: 80%;
+  align-content: center;
+}
+
 .nav li.active {
-  background-color: #555;
+  background-color: #75D7C2;
+  font-weight: bold;
+  color: black;
 }
 
 .nav li:hover{ 
-  background-color: #777;
+  background-color: #5DA293;
 }
 

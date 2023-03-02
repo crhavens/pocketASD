@@ -1,0 +1,33 @@
+.listUserContainer { 
+  height: 100%;
+  width: 100%;
+  background-color: #75D7C2;
+  overflow-y: scroll;
+}
+
+.searchBarContainer {
+  width: auto;
+  height: 30px;
+}
+
+.searchBar {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border-color: rgb(0, 140, 255);
+  border-bottom-color: rgb(0, 140, 255);
+  border-width: 2px;
+}
+
+.listUserContainer ul {
+ margin: 0; 
+ padding: 0;
+ width: 100%;
+ list-style: none;
+}
+
+.listUserContainer li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
