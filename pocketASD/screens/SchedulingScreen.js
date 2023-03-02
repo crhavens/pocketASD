@@ -6,8 +6,7 @@ const SchedulingScreen = () => {
 
   const [selectedDates, setSelectedDates] = useState(new Set());
   const [markedDates, setMarkedDates] = useState({});
-  const date = new Date();
-  const today = date.getFullYear() + '-0' + (date.getMonth() + 1) + '-' + date.getDate();
+  const today = getToday()
 
   function updateSelectedDates(date){
     let dates = selectedDates;
@@ -30,6 +29,21 @@ const SchedulingScreen = () => {
 
   function disableDays(){
     return selectedDates.size >= 3
+  }
+
+  function getToday(){
+    const date = new Date();
+    var month = '-';
+    if(date.getMonth() + 1 < 10){
+      month += '0'
+    }
+    month += (date.getMonth() + 1) + '';
+    var day = '-';
+    if(date.getDate() + 1 < 10){
+      day += '0'
+    }
+    day += (date.getDate()) + '';
+    return date.getFullYear() + month + day;
   }
 
   return (
