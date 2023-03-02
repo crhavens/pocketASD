@@ -1,5 +1,5 @@
 import { useState, React } from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import questions from '../data/questions'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native'
@@ -67,8 +67,8 @@ const QuestionScreen = () => {
           </Text>
         </Pressable>
       </View>
-        <View style={{marginBottom:30}}>
-        <Pressable
+      <View style={{marginBottom:30}}>
+        <TouchableOpacity
           style={
             answers[index]!=='null' ? styles.confirmButtonGreen : styles.confirmButtonGray
           }
@@ -81,12 +81,10 @@ const QuestionScreen = () => {
             }
           }}
         >
-          <Text
-            style={styles.confirmButtonText}
-          >
+          <Text style={styles.confirmButtonText}>
             Continue
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   )
