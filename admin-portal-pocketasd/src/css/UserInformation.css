@@ -1,11 +1,11 @@
 .userList { 
-  background-color: #03a;
+  background-color: #75D7C2;
   height: 500px;
 }
 
  .grid-item {
   border: 2px;
   border-style: solid;
-  border-color: red;
+  border-color: black;
   width: 100%;
 }

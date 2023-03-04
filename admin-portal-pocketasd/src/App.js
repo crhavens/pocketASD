@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './css/App.css';
-import AdminList from './components/AdminList';
 import Appointments from './components/Appointments';
 import Home from './components/Home';
 import Navbar from './components/navbar';
 import { Route, Routes } from "react-router-dom"
+import UserInformation from './components/UserInformation';
 
 function App() {
   /*return (
@@ -33,7 +33,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/appointments" element={<Appointments />} />
-          <Route path="/admin" element={<AdminList />} />
+          <Route path="/users" element={<UserInformation />} />
         </Routes>
       </div>
     </>

@@ -1,11 +1,12 @@
-import { Grid } from "@material-ui/core"
-import AdminListItem from "./AdminListItem.js"
-import '../css/AdminList.css'
+import { Grid } from '@material-ui/core'
 
-export default function AdminList() {
+import ListUsers from './ListUsers'
+import '../css/UserInformation.css'
+
+export default function UserInformation() {
   return (
     <>
-      <h1>AdminList</h1>
+      <h1>User Information</h1>
       <Grid 
           container
           direction="row"
@@ -15,12 +16,7 @@ export default function AdminList() {
           <Grid container item xs={2}>
             <div className="grid-item">
               <div className="userList">
-                <AdminListItem/>
-                <AdminListItem/>
-                <AdminListItem/>
-                <AdminListItem/>
-                <AdminListItem/>
-                <AdminListItem/>
+                <ListUsers/>
               </div>
 
             </div>
@@ -29,7 +25,7 @@ export default function AdminList() {
           <Grid container item xs={8}>
             <div className="grid-item">
               <div className="userList">
-                <text>here will be info and buttons to change the admin access of the selected user.</text>
+                <p>here will be info and buttons to change the admin access of the selected user.</p>
               </div>
             </div>
           </Grid>
