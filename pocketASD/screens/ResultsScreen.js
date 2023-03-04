@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Linking,
-  TouchableOpacity,
-  Pressable
-} from "react-native";
+import { View, Text, StyleSheet, Linking, TouchableOpacity, Pressable } from "react-native";
 import { useNavigation } from '@react-navigation/native'
 import questions from '../data/questions'
 import results from '../data/results'
@@ -84,6 +77,20 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
     fontSize: 16,
+  },
+
+  // usedfor testing
+  button: {
+    backgroundColor: '#75D7C2',
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: '20'
   },
 })
 

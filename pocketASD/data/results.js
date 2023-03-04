@@ -3,5 +3,5 @@ export default {
 
   "Moderate": "This score indicates a moderate risk of autism spectrum disorder.\n\nA follow up is advised. You can schedule an appointment for a formal diagnosis in the scheduling tab.",
 
-  "High": "This score indicates a high risk of autism spectrum disorder.\n\nA follow up is heavily advised. Schedule an appointment for a formal diagnosis with a doctor in the scheduling tab."
+  "High": "This score indicates a high risk of autism spectrum disorder.\n\nA follow up is heavily advised. Please schedule an appointment for a formal diagnosis with a doctor in the scheduling tab."
 }
