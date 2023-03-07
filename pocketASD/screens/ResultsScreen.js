@@ -54,7 +54,7 @@ const ResultsScreen = ({ route }) => {
             justifyContent:'center'
           }}
           onPress={() => {
-              navigation.navigate('Question')
+              navigation.navigate('Question', {answers: route.params.answers})
           }}
         >
             Edit your answers
