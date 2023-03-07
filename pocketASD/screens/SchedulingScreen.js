@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button } from "react-native" ;
 import { Calendar } from 'react-native-calendars';
+import { async } from '@firebase/util';
+import { setDoc, getDoc, doc } from 'firebase/firestore';
+import { db, auth } from '../firebase'
 
 const SchedulingScreen = () => {
 
@@ -8,7 +11,25 @@ const SchedulingScreen = () => {
   const [markedDates, setMarkedDates] = useState({});
   const today = getToday()
 
-  function updateSelectedDates(date){
+  useEffect(() => {
+    // pull appointment days from firebase
+    async function getAppointments() {
+      try {
+        const docSnap = await getDoc(doc(db, "users", auth.currentUser.uid))
+        if (docSnap.data().appointmentDateRequest != null) {
+          // we have data already, go to another page (or do whatever u want to handle)
+        }
+        docSnap.data().appointmentDateRequest.forEach(item => {updateSelectedDates(item)})
+      }
+      catch(e) { alert(e.message) }
+    }
+
+    getAppointments();
+    
+  }, []);
+
+  function updateSelectedDates(date) {
+    console.log(date)
     let dates = selectedDates;
     if (dates.has(date)){
       dates.delete(date)
@@ -23,9 +44,25 @@ const SchedulingScreen = () => {
     setMarkedDates(marked)
   }
 
-  function confirmDates(){
+  const confirmDates = async () => {
     console.log(selectedDates)
-  }
+    const appointmentDateRequest = Array.from(selectedDates)
+    // Upload data to firebase
+    try {
+      const docRef = await setDoc(doc(db, "users", auth.currentUser.uid),
+      {
+        // data
+        appointmentDateRequest
+      },
+      {
+        merge: true
+      });
+      console.log("Document written succesfully.");
+    }
+    catch(e) {
+      console.log("Error adding document: " , e);
+    }
+  } 
 
   function disableDays(){
     return selectedDates.size >= 3
