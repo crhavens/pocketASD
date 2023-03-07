@@ -1,9 +1,7 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useState } from 'react'
-import { async } from '@firebase/util'
-import { auth, db } from '../firebase'
-import { setDoc, doc } from "firebase/firestore"
+import { useState, useEffect } from 'react'
+import { getCurrentUserDataByField, setCurrentUserData } from "../api/firebase-api";
 
 const ProfileScreen = () => {
   const [firstName, setFirstName] = useState('')
@@ -15,27 +13,49 @@ const ProfileScreen = () => {
   const [provider, setProvider] = useState('')
   const [medicalCenter, setMedicalCenter] = useState('')
   const [guardian, setGuardian] = useState('')
+  
+  const [remoteData, setRemoteData] = useState({})
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getCurrentUserDataByField(null)
+      setRemoteData(data)
+    }
+    getData();
+  }, [])
+
+  useEffect(() => {
+    if (remoteData != null && Object.keys(remoteData).length != 0) {
+      initializeData(remoteData)
+    }
+  }, [remoteData]);
+
+  const initializeData = () => {
+    console.log("Data received from backend");
+    setFirstName(remoteData.firstName);
+    setLastName(remoteData.lastName);
+    setBirthDay(remoteData.birthDay);
+    setGender(remoteData.gender);
+    setGuardian(remoteData.guardian);
+    setMailing(remoteData.mailing);
+    setEmail(remoteData.email);
+    setProvider(remoteData.provider);
+    setMedicalCenter(remoteData.medicalCenter);
+  }
 
   const handleFormUpdate = async () => {
-    try {
-      const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
-        firstName: firstName,
-        lastName: lastName,
-        birthDay: birthDay,
-        gender: gender,
-        email: email,
-        mailing: mailing,
-        provider: provider,
-        medicalCenter: medicalCenter,
-        guardian: guardian,
-      },
-      {
-        merge: true
-      });
-      console.log("Document written successfully");
-    } catch(e) {
-      console.log("Error adding document: ", e)
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+      birthDay: birthDay,
+      gender: gender,
+      email: email,
+      mailing: mailing,
+      provider: provider,
+      medicalCenter: medicalCenter,
+      guardian: guardian
     }
+    setCurrentUserData(data)
   }
 
   return (
