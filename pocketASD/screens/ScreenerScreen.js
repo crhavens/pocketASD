@@ -1,9 +1,68 @@
 import { View, Text, StyleSheet, Linking, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native'
+import { auth, db } from '../firebase'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { useEffect , useState, React } from "react";
+import { async } from "@firebase/util";
 
 const ScreenerScreen = () => {
 
   const navigation = useNavigation()
+  const[answers, setAnswers]= useState(['null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null'])
+  const[answeredBefore, setAnsweredBefore] = useState(0) // 1 if user has submitted results before, 0 otherwise
+
+
+  useEffect (() => {
+    async function getAnswers() {
+      try{ 
+        const docSnap =  await getDoc(doc(db, "users", auth.currentUser.uid))
+        if (docSnap.data().surveryResponses != null) {
+          setAnswers(docSnap.data().surveryResponses)
+          setAnsweredBefore(1)
+        }
+      } catch(e) { }
+    }
+    getAnswers()
+  }, []);
+
+  const buttons = () => {
+    if(answeredBefore === 1) {
+      return(
+        <View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => 
+              navigation.navigate('Question', {answers: ['null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null']})
+            }
+          >
+            <Text style={styles.buttonText}>
+              Retake the Screener
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Results', {answers: answers})}
+          >
+            <Text style={styles.buttonText}>
+              View your results
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+    else {
+      return (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Question', {answers: answers})}
+        >
+          <Text style={styles.buttonText}>
+            Take the Screener
+          </Text>
+        </TouchableOpacity>
+      )
+    }
+  }
 
   return (
     <View style={{padding:10}}>
@@ -36,15 +95,7 @@ const ScreenerScreen = () => {
           Tap here for more about M-Chat-R™
         </Text>
       </Text>
-          
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Question')}
-      >
-        <Text style={styles.buttonText}>
-          Take the Screener
-        </Text>
-      </TouchableOpacity>
+      {buttons()}
     </View>
     
   )

@@ -1,9 +1,7 @@
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useState } from 'react'
-import { async } from '@firebase/util'
-import { auth, db } from '../firebase'
-import { setDoc, doc } from "firebase/firestore"
+import { useState, useEffect } from 'react'
+import { getCurrentUserDataByField, setCurrentUserData } from "../api/firebase-api";
 
 const ProfileScreen = () => {
   const [firstName, setFirstName] = useState('')
@@ -15,143 +13,171 @@ const ProfileScreen = () => {
   const [provider, setProvider] = useState('')
   const [medicalCenter, setMedicalCenter] = useState('')
   const [guardian, setGuardian] = useState('')
+  
+  const [remoteData, setRemoteData] = useState({})
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getCurrentUserDataByField(null)
+      setRemoteData(data)
+    }
+    getData();
+  }, [])
+
+  useEffect(() => {
+    if (remoteData != null && Object.keys(remoteData).length != 0) {
+      initializeData(remoteData)
+    }
+  }, [remoteData]);
+
+  const initializeData = () => {
+    console.log("Data received from backend");
+    setFirstName(remoteData.firstName);
+    setLastName(remoteData.lastName);
+    setBirthDay(remoteData.birthDay);
+    setGender(remoteData.gender);
+    setGuardian(remoteData.guardian);
+    setMailing(remoteData.mailing);
+    setEmail(remoteData.email);
+    setProvider(remoteData.provider);
+    setMedicalCenter(remoteData.medicalCenter);
+  }
 
   const handleFormUpdate = async () => {
-    try {
-      const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
-        firstName: firstName,
-        lastName: lastName,
-        birthDay: birthDay,
-        gender: gender,
-        email: email,
-        mailing: mailing,
-        provider: provider,
-        medicalCenter: medicalCenter,
-        guardian: guardian,
-      },
-      {
-        merge: true
-      });
-      console.log("Document written successfully");
-    } catch(e) {
-      console.log("Error adding document: ", e)
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+      birthDay: birthDay,
+      gender: gender,
+      email: email,
+      mailing: mailing,
+      provider: provider,
+      medicalCenter: medicalCenter,
+      guardian: guardian
     }
+    setCurrentUserData(data)
   }
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
+      behavior='padding'
     >
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>Profile</Text>
-      </View>
-
-      <View style={styles.profilePictureContainer}>
-        {/* profile picture with edit options */}
-        <View style={styles.profilePicture} >
-          <Icon
-            name="user-circle"
-            size="90"
-            color="#000"
-          />
-        </View>
-        
-      </View>
-
-      <View style={styles.formsContainer}>
-
-        <View style={styles.horizontalPrompts}>
-          <Text style={styles.text}>First Name</Text>
-          <Text style={styles.text}>Last Name</Text>
-        </View>
-        <View style={styles.horizontalInputs}>
-          <TextInput 
-            placeholder="First Name"
-            style={styles.multiInput}
-            value={firstName}
-            onChangeText={text => setFirstName(text)}
-          />
-          <TextInput 
-            placeholder="Last Name"
-            style={styles.multiInput}
-            value={lastName}
-            onChangeText={text => setLastName(text)}
-          />
-        </View>
-
-        <View style={styles.horizontalPrompts}>
-          <Text style={styles.text}>Date of Birth</Text>
-          <Text style={styles.text}>Gender at Birth</Text>
-        </View>
-        <View style={styles.horizontalInputs}>
-          <TextInput
-            autoCapitalize={false}
-            placeholder="MM/DD/YYYY"
-            style={styles.multiInput}
-            value={birthDay}
-            onChangeText={text => setBirthDay(text)}
-          />
-          <TextInput 
-            placeholder="Gender"
-            style={styles.multiInput}
-            value={gender}
-            onChangeText={text => setGender(text)}
-          />
-        </View>
-        
-        <Text style={styles.text}>Email Address</Text>
-        <TextInput 
-          autoCapitalize={false}
-          placeholder="Email"
-          style={styles.input}
-          value={email}
-          onChangeText={text => setEmail(text)}
-        />
-
-        <Text style={styles.text}>Mailing Address</Text>
-        <TextInput 
-          placeholder="Mailing Address"
-          style={styles.input}
-          value={mailing}
-          onChangeText={text => setMailing(text)}
-        />
-
-        <Text style={styles.text}>Primary Care Provider</Text>
-        <TextInput 
-          placeholder="Care Provider"
-          style={styles.input}
-          value={provider}
-          onChangeText={text => setProvider(text)}
-        />
-
-        <Text style={styles.text}>Medical Insurance Center</Text>
-        <TextInput 
-          placeholder="Medical Insurance"
-          style={styles.input}
-          value={medicalCenter}
-          onChangeText={text => setMedicalCenter(text)}
-        />
-
-        <Text style={styles.text}>Parent/Legal Guardian</Text>
-        <TextInput 
-          placeholder="Guardian"
-          style={styles.input}
-          value={guardian}
-          onChangeText={text => setGuardian(text)}
-        />
-      </View>
-
-      <View style={styles.submitContainer}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleFormUpdate}
-          >
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Profile</Text>
+          </View>
+
+          <View style={styles.profilePictureContainer}>
+            {/* profile picture with edit options */}
+            <View style={styles.profilePicture} >
+              <Icon
+                name="user-circle"
+                size="90"
+                color="#000"
+              />
+            </View>
+            
+          </View>
+
+          <KeyboardAvoidingView style={styles.formsContainer}>
+
+            <View style={styles.horizontalPrompts}>
+              <Text style={styles.text}>First Name</Text>
+              <Text style={styles.text}>Last Name</Text>
+            </View>
+            <View style={styles.horizontalInputs}>
+              <TextInput 
+                placeholder="First Name"
+                style={styles.multiInput}
+                value={firstName}
+                onChangeText={text => setFirstName(text)}
+              />
+              <TextInput 
+                placeholder="Last Name"
+                style={styles.multiInput}
+                value={lastName}
+                onChangeText={text => setLastName(text)}
+              />
+            </View>
+
+            <View style={styles.horizontalPrompts}>
+              <Text style={styles.text}>Date of Birth</Text>
+              <Text style={styles.text}>Gender at Birth</Text>
+            </View>
+            <View style={styles.horizontalInputs}>
+              <TextInput
+                autoCapitalize={false}
+                placeholder="MM/DD/YYYY"
+                style={styles.multiInput}
+                value={birthDay}
+                onChangeText={text => setBirthDay(text)}
+              />
+              <TextInput 
+                placeholder="Gender"
+                style={styles.multiInput}
+                value={gender}
+                onChangeText={text => setGender(text)}
+              />
+            </View>
+            
+            <Text style={styles.text}>Email Address</Text>
+            <TextInput 
+              autoCapitalize={false}
+              placeholder="Email"
+              style={styles.input}
+              value={email}
+              onChangeText={text => setEmail(text)}
+            />
+
+            <Text style={styles.text}>Mailing Address</Text>
+            <TextInput 
+              placeholder="Mailing Address"
+              style={styles.input}
+              value={mailing}
+              onChangeText={text => setMailing(text)}
+            />
+
+            <Text style={styles.text}>Primary Care Provider</Text>
+            <TextInput 
+              placeholder="Care Provider"
+              style={styles.input}
+              value={provider}
+              onChangeText={text => setProvider(text)}
+            />
+
+            <Text style={styles.text}>Medical Insurance Center</Text>
+            <TextInput 
+              placeholder="Medical Insurance"
+              style={styles.input}
+              value={medicalCenter}
+              onChangeText={text => setMedicalCenter(text)}
+            />
+
+            <Text style={styles.text}>Parent/Legal Guardian</Text>
+            <TextInput 
+              placeholder="Guardian"
+              style={styles.input}
+              value={guardian}
+              onChangeText={text => setGuardian(text)}
+            />
+          </KeyboardAvoidingView>
+
+          <View style={styles.submitContainer}>
+            <View>
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleFormUpdate}
+              >
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
 
     </KeyboardAvoidingView>
   )
@@ -166,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#75D7C2',
+    backgroundColor: '#078279',
     width: '100%',
     padding: 15,
     borderRadius: 10,
@@ -196,19 +222,22 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   input: {
+    minWidth: 200,
     borderWidth: 1,
-    borderColor: '#75D7C2',
+    borderColor: '#078279',
     backgroundColor: '#ddd',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
-    width: '60%',
     fontSize: 15,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    justifyContent: 'center',
   },
   multiInput: {
     borderWidth: 1,
-    borderColor: '#75D7C2',
+    borderColor: '#078279',
     backgroundColor: '#ddd',
     marginHorizontal: 20,
     paddingHorizontal: 15,
@@ -248,7 +277,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleText: {
-    color: '#75d7c2',
+    color: '#078279',
     fontWeight: 'bold',
     fontSize: 32,
     fontFamily: 'Georgia',
