@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {
-  Linking,
+  Linking, Text
 } from 'react-native';
 
 import {
@@ -15,10 +15,8 @@ import {
 import HomeScreen from '../screens/HomeScreen';
 
 import ProfileScreen from '../screens/ProfileScreen';  
-import ScreenerScreen from '../screens/ScreenerScreen';
 import SchedulingScreen from '../screens/SchedulingScreen';
 import ResourcesScreen from '../screens/ResourcesScreen';
-
 import { ScreenerNavigator } from './ScreenerNavigator';
 
 const Drawer = createDrawerNavigator();
@@ -40,22 +38,32 @@ const MainDrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
       screenOptions={{
-
-      }}
+        headerStyle: {
+          backgroundColor: '#078279',
+          height: 110
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }
+    }
     >
       <Drawer.Screen
         name="Home"
         component={HomeScreen}
         options={{
+          drawerActiveTintColor: '#078279',
+          drawerActiveBackgroundColor: '#C5FFFB',
           drawerIcon: ({ focused, size }) => (
             <Icon
               name="home"
               size={size}
-              color={focused ? '#078279' : 'black'}
+              color={focused ? '#078279' : 'gray'}
               style={{
                 alignSelf: "center",
                 position: "absolute",
-                right: 5,
+                right: 10,
               }}
             />
           )
@@ -65,15 +73,17 @@ const MainDrawerNavigator = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
+          drawerActiveTintColor: '#078279',
+          drawerActiveBackgroundColor: '#C5FFFB',
           drawerIcon: ({ focused, size }) => (
             <Icon
               name="user-circle"
               size={size}
-              color={focused ? '#078279' : 'black'}
+              color={focused ? '#078279' : 'gray'}
               style={{
                 alignSelf: "center",
                 position: "absolute",
-                right: 5,
+                right: 10,
               }}
             />
           )
@@ -83,15 +93,17 @@ const MainDrawerNavigator = () => {
         name="Screener"
         component={ScreenerNavigator}
         options={{
+          drawerActiveTintColor: '#078279',
+          drawerActiveBackgroundColor: '#C5FFFB',
           drawerIcon: ({ focused, size }) => (
             <Icon
               name="question"
               size={size}
-              color={focused ? '#078279' : 'black'}
+              color={focused ? '#078279' : 'gray'}
               style={{
                 alignSelf: "center",
                 position: "absolute",
-                right: 5,
+                right: 10,
               }}
             />
           )
@@ -101,15 +113,17 @@ const MainDrawerNavigator = () => {
         name = "Scheduling"
         component={SchedulingScreen}
         options = {{
+          drawerActiveTintColor: '#078279',
+          drawerActiveBackgroundColor: '#C5FFFB',
             drawerIcon: ({focused, size}) => (
                 <Icon
                     name="calendar"
                     size={size}
-                    color = {focused ? '#078279' : 'black'}
+                    color = {focused ? '#078279' : 'gray'}
                     style = {{
                       alignSelf: "center",
                       position: "absolute",
-                      right: 5,
+                      right: 10,
                     }}
                 />
             )
@@ -119,15 +133,17 @@ const MainDrawerNavigator = () => {
         name = "Resources"
         component={ResourcesScreen}
         options = {{
+          drawerActiveTintColor: '#078279',
+          drawerActiveBackgroundColor: '#C5FFFB',
             drawerIcon: ({focused, size}) => (
                 <Icon
                     name="hands-helping"
                     size={size}
-                    color = {focused ? '#078279' : 'black'}
+                    color = {focused ? '#078279' : 'gray'}
                     style = {{
                       alignSelf: "center",
                       position: "absolute",
-                      right: 5,
+                      right: 10,
                     }}
                 />
             )

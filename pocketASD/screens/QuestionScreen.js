@@ -5,34 +5,17 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native'
 import { auth, db } from '../firebase'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { async } from '@firebase/util';
 
 
-const QuestionScreen = () => {
+const QuestionScreen = ({ route }) => {
 
   const navigation = useNavigation()
 
   const[index, setIndex] = useState(0)
-  const[answers, setAnswers]= useState(['null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null','null'])
+  const[answers, setAnswers]= useState(route.params.answers)
 
   const data = questions;
   const currentQuestion = data[index];
-
-  useEffect(() => {
-    // here we will try to pull the answers from firestore
-    async function getAnswers() {
-      try{ 
-        console.log(auth.currentUser.uid)
-        const docSnap =  await getDoc(doc(db, "users", auth.currentUser.uid))
-        if (docSnap.data().surveryResponses != null) {
-          setAnswers(docSnap.data().surveryResponses)
-          navigation.navigate('Results',{answers: answers})
-        }
-        console.log("Read document succesfully with id: ", auth.currentUser.uid)
-      } catch(e) { alert(e.message) }
-    }
-    getAnswers()
-  }, []);
 
   const submitToDatabase = async () => {
     try {
@@ -43,7 +26,6 @@ const QuestionScreen = () => {
       {
         merge: true
       });
-      console.log("Document written successfully");
     } catch(e) {
       console.log("Error adding document: ", e)
     }
@@ -55,7 +37,7 @@ const QuestionScreen = () => {
         <View style={{flexDirection:'row', justifyContent:'center'}}>
           <Pressable 
             onPress={()=>
-              index===0 ? navigation.navigate('Screener') : setIndex(index-1)}
+              index===0 ? navigation.goBack({answers:answers}) : setIndex(index-1)}
           >
             <Icon
               name="arrow-alt-circle-left"
