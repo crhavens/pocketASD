@@ -13,7 +13,7 @@ const HomeScreen = () => {
   const handleSignOut = () => {
     auth.signOut()
       .then(() => {
-        navigation.goBack()
+        navigation.navigate("Login")
       })
       .catch(error => alert(error.message))
   }
@@ -36,13 +36,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={addUser}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>DATABASE EXAMPLE</Text>
-      </TouchableOpacity>
-      <Text>Email: {auth.currentUser?.email}</Text>
+      <Text>Hello {auth.currentUser?.email}</Text>
       <TouchableOpacity
         onPress={handleSignOut}
         style={styles.button}
