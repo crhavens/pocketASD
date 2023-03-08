@@ -6,7 +6,7 @@ import { userCollectionRef } from '../lib/firestore.collections'
 import '../css/ListUsers.css'
 import UserListItem from './UserListItem'
 
-export default function ListUsers() {
+export default function ListUsers({ callback }) {
   const [users, setUsers] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,7 +38,9 @@ export default function ListUsers() {
     setSearchQuery(getSearch);
 
     if (getSearch.length > 0) {      
-      const searchData = filterData.filter((item) => item.data.lastName.toLowerCase().includes(getSearch.toLowerCase()));
+      const searchData = filterData.filter((item) => item.data.lastName && item.data.lastName.toLowerCase().includes(getSearch.toLowerCase()));
+      console.log('searchData:', searchData);
+
       setFilterData(searchData);
     } else {
       setFilterData(users);
@@ -48,13 +50,13 @@ export default function ListUsers() {
   return (
     <div className="listUserContainer">
       <div className="searchBarContainer">
-        <input type="text" placeholder="search by last name" value={searchQuery} onChange={(e) => handleSearch(e)} onKeyUp={(e) => handleSearch(e)} className="searchBar"/>
+        <input type="text" placeholder="search by last name" value={searchQuery} onChange={(e) => handleSearch(e)} className="searchBar"/>
       </div>
       <div>
         <ul>
           {filterData.map(user => (
             <li key={user.id}>
-              <UserListItem data={user.data}/>
+              <UserListItem data={user.data} callback={callback}/>
             </li>
           ))}
         </ul>
