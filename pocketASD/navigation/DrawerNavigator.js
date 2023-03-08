@@ -15,7 +15,8 @@ import {
 import HomeScreen from '../screens/HomeScreen';
 
 import ProfileScreen from '../screens/ProfileScreen';  
-import SchedulingScreen from '../screens/SchedulingScreen';
+import ScreenerScreen from '../screens/ScreenerScreen';
+import {SchedulerNavigator} from './SchedulerNavigator';
 import ResourcesScreen from '../screens/ResourcesScreen';
 import { ScreenerNavigator } from './ScreenerNavigator';
 
@@ -110,8 +111,8 @@ const MainDrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name = "Scheduling"
-        component={SchedulingScreen}
+        name = "Scheduler"
+        component={SchedulerNavigator}
         options = {{
           drawerActiveTintColor: '#078279',
           drawerActiveBackgroundColor: '#C5FFFB',
