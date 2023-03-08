@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   header: {
       flex: 1,
-      marginTop: 50
+      marginTop: 5
   },
   headerText: {
       textAlign: 'center',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
   },
   body: {
-      flex: 9,
+      flex: 4,
   },
   bodyText: {
       textAlign: 'center',
