@@ -3,6 +3,12 @@
   height: 500px;
 }
 
+.userDisplay {
+  background-color: #75D7C2;
+  height: 500px;
+  padding: 1rem;
+}
+
  .grid-item {
   border: 2px;
   border-style: solid;

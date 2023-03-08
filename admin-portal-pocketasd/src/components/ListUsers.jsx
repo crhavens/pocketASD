@@ -6,10 +6,11 @@ import { userCollectionRef } from '../lib/firestore.collections'
 import '../css/ListUsers.css'
 import UserListItem from './UserListItem'
 
-export default function ListUsers() {
+export default function ListUsers({ callback }) {
   const [users, setUsers] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedId, setSelectedId] = useState(0);
 
   useEffect(() => {
     //const userCollectionRef = query(collection(db, 'users'), where(documentId(), "!=", "default"))
@@ -38,23 +39,30 @@ export default function ListUsers() {
     setSearchQuery(getSearch);
 
     if (getSearch.length > 0) {      
-      const searchData = filterData.filter((item) => item.data.lastName.toLowerCase().includes(getSearch.toLowerCase()));
+      const searchData = filterData.filter((item) => item.data.lastName && item.data.lastName.toLowerCase().includes(getSearch.toLowerCase()));
+      console.log('searchData:', searchData);
+
       setFilterData(searchData);
     } else {
       setFilterData(users);
     }
   }
+
+  function handleListItemClick(id, data) {
+    setSelectedId(id)
+    callback(data)
+  }
   
   return (
     <div className="listUserContainer">
       <div className="searchBarContainer">
-        <input type="text" placeholder="search by last name" value={searchQuery} onChange={(e) => handleSearch(e)} onKeyUp={(e) => handleSearch(e)} className="searchBar"/>
+        <input type="text" placeholder="search by last name" value={searchQuery} onChange={(e) => handleSearch(e)} className="searchBar"/>
       </div>
       <div>
         <ul>
           {filterData.map(user => (
-            <li key={user.id}>
-              <UserListItem data={user.data}/>
+            <li className={selectedId == user.id ? "selectedItem" : ""} key={user.id}>
+              <UserListItem id={user.id} data={user.data} callback={handleListItemClick}/>
             </li>
           ))}
         </ul>
