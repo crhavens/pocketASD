@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   formsContainer: {
     margin: 20,
     paddingTop: 5,
-    flex: 4,
+    flex: 8,
     justifyContent: 'top',
     alignItems: 'center',
     width: '100%',
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   horizontalPrompts: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%'
+    width: '100%',
   },
   input: {
     minWidth: 200,
@@ -255,13 +255,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#74B1D6',
   },
   profilePictureContainer: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
   submitContainer: {
     marginTop: 35,
-    flex: 1,
+    flex: 2,
     justifyContent: 'top',
     alignItems: 'center',
     height: '100%',
@@ -269,7 +269,9 @@ const styles = StyleSheet.create({
   text: {
     color: 'black',
     fontWeight: '500',
-    fontSize: 18
+    fontSize: 18,
+    margin: 0,
+    padding: 0,
   },
   titleContainer: {
     flex: 1,
