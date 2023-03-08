@@ -17,7 +17,7 @@ export default function UserListItem(props) {
   }
 
   const handleClick = () => {
-    props.callback(props.data)
+    props.callback(props.id, props.data)
   }
   return (
     <div onClick={handleClick}>

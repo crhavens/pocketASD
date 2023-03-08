@@ -10,6 +10,7 @@ export default function ListUsers({ callback }) {
   const [users, setUsers] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedId, setSelectedId] = useState(0);
 
   useEffect(() => {
     //const userCollectionRef = query(collection(db, 'users'), where(documentId(), "!=", "default"))
@@ -46,6 +47,11 @@ export default function ListUsers({ callback }) {
       setFilterData(users);
     }
   }
+
+  function handleListItemClick(id, data) {
+    setSelectedId(id)
+    callback(data)
+  }
   
   return (
     <div className="listUserContainer">
@@ -55,8 +61,8 @@ export default function ListUsers({ callback }) {
       <div>
         <ul>
           {filterData.map(user => (
-            <li key={user.id}>
-              <UserListItem data={user.data} callback={callback}/>
+            <li className={selectedId == user.id ? "selectedItem" : ""} key={user.id}>
+              <UserListItem id={user.id} data={user.data} callback={handleListItemClick}/>
             </li>
           ))}
         </ul>
