@@ -7,12 +7,12 @@ import React, { useEffect, useState } from "react"
 export default function DisplayUserInformation(props) {
   const [userSelected, setUserSelected] = useState(false);
   
-  const appointmentListItem = props.data.appointmentDateRequest ? props.data.appointmentDateRequest.map((date) =>
-    <li className="appointmentListItem">{date}</li>
+  const appointmentListItem = props.data.appointmentDateRequest ? props.data.appointmentDateRequest.map((date, index) =>
+    <li key={index} className="appointmentListItem">{date}</li>
   ) : [];
 
   const surveryResponsesListItem = props.data.surveryResponses ? props.data.surveryResponses.map((answer, index) =>
-    <li className="surveyListItem">
+    <li key={index} className="surveyListItem">
       <span style={{ marginRight: '20px', width: '20px'}}>{index+1}:</span>
       <span >{answer}</span>
     </li>
@@ -63,43 +63,47 @@ export default function DisplayUserInformation(props) {
 
         <div className="information">
           <div className="fieldRow">
-            <span className="fieldKey">Name:</span>
+            { userSelected ? (<span className="fieldKey">Name:</span>) : null }
             <span className="fieldValue">{handleName()}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Email:</span>
+            { userSelected ? (<span className="fieldKey">Email:</span>) : null }
             <span className="fieldValue">{props.data.email}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Date of Birth:</span>
+            { userSelected ? (<span className="fieldKey">Date of Birth:</span>) : null }
             <span className="fieldValue">{props.data.birthDay}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Gender:</span>
+            { userSelected ? (<span className="fieldKey">Gender:</span>) : null }
             <span className="fieldValue">{props.data.gender}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Legal Guardian:</span>
+            { userSelected ? (<span className="fieldKey">Legal Guardian:</span>) : null }
             <span className="fieldValue">{props.data.guardian}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Mailing Address:</span>
+            { userSelected ? (<span className="fieldKey">Mailing Address:</span>) : null }
             <span className="fieldValue">{props.data.mailing}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Medical Insurance Center:</span>
+            { userSelected ? (<span className="fieldKey">Medical Insurance Center:</span>) : null }
             <span className="fieldValue">{props.data.medicalCenter}</span>
           </div>
 
           <div className="fieldRow">
-            <span className="fieldKey">Primary Care Provider:</span>
+            { userSelected ? (<span className="fieldKey">Primary Care Provider:</span>) : null }
             <span className="fieldValue">{props.data.provider}</span>
+          </div>
+
+          <div className="empty">
+            { userSelected ? null : <span>Please Select a User</span>}
           </div>
         </div>
       </Grid>
