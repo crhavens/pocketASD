@@ -4,32 +4,48 @@ import { Calendar } from 'react-native-calendars';
 import { async } from '@firebase/util';
 import { setDoc, getDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase'
+import { useNavigation } from '@react-navigation/native'
 
-const SchedulingScreen = () => {
+const SchedulerScreen = ({route}) => {
 
-  const [selectedDates, setSelectedDates] = useState(new Set());
-  const [markedDates, setMarkedDates] = useState({});
+  const [selectedDates, setSelectedDates] = useState(new Set())
+  const [markedDates, setMarkedDates] = useState({})
+  const [cancelButton, setCancelButton] = useState()
   const today = getToday()
+  const navigation = useNavigation()
 
   useEffect(() => {
     // pull appointment days from firebase
-    async function getAppointments() {
-      try {
-        const docSnap = await getDoc(doc(db, "users", auth.currentUser.uid))
-        if (docSnap.data().appointmentDateRequest != null) {
-          // we have data already, go to another page (or do whatever u want to handle)
-        }
-        docSnap.data().appointmentDateRequest.forEach(item => {updateSelectedDates(item)})
-      }
-      catch(e) { alert(e.message) }
-    }
-
     getAppointments();
     
   }, []);
 
+  useEffect(() =>{
+    if(route.params != null){
+      let dates = selectedDates.clear()
+      setSelectedDates(dates)
+      route.params.dates.forEach(item => {updateSelectedDates(item)})
+      const cancel = () => {return <Button title='Cancel' onPress={cancelEdit}></Button>}
+      setCancelButton(cancel)
+    }
+  },[route]);
+
+  async function getAppointments() {
+    try {
+      const docSnap = await getDoc(doc(db, "users", auth.currentUser.uid))
+      if (docSnap.data().appointmentDateRequest != null) {
+        // we have data already, go to another page (or do whatever u want to handle)
+        navigation.navigate('Confirmation',{dates: docSnap.data().appointmentDateRequest})
+      }
+    }
+    catch(e) { alert(e.message) }
+  }
+
+  function cancelEdit(){
+    getAppointments()
+  }
+
   function updateSelectedDates(date) {
-    console.log(date)
     let dates = selectedDates;
     if (dates.has(date)){
       dates.delete(date)
@@ -58,6 +74,7 @@ const SchedulingScreen = () => {
         merge: true
       });
       console.log("Document written succesfully.");
+      navigation.navigate('Confirmation',{dates: Array.from(selectedDates)})
     }
     catch(e) {
       console.log("Error adding document: " , e);
@@ -94,13 +111,15 @@ const SchedulingScreen = () => {
         markedDates={markedDates}
         disabledByDefault={disableDays()}
         disableAllTouchEventsForDisabledDays={disableDays()}
+        allowSelectionOutOfRange={disableDays()}
       />
       <Button onPress={confirmDates} title="Confirm Dates"/>
+      {cancelButton}
   	</View>
     )
 }
 
-export default SchedulingScreen
+export default SchedulerScreen
 
 const styles = StyleSheet.create({
   container: {
