@@ -21,7 +21,7 @@ const SchedulingScreen = () => {
         }
         docSnap.data().appointmentDateRequest.forEach(item => {updateSelectedDates(item)})
       }
-      catch(e) { alert(e.message) }
+      catch(e) {}
     }
 
     getAppointments();

@@ -13,7 +13,7 @@ const HomeScreen = () => {
   const handleSignOut = () => {
     auth.signOut()
       .then(() => {
-        navigation.replace("Login")
+        navigation.goBack()
       })
       .catch(error => alert(error.message))
   }

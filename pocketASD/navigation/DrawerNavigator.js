@@ -40,8 +40,15 @@ const MainDrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
       screenOptions={{
-
-      }}
+        headerStyle: {
+          backgroundColor: '#078279',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }
+    }
     >
       <Drawer.Screen
         name="Home"
@@ -80,7 +87,7 @@ const MainDrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="Screener"
+        name="ScreenerStack"
         component={ScreenerNavigator}
         options={{
           drawerIcon: ({ focused, size }) => (
