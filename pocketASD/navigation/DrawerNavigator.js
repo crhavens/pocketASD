@@ -40,6 +40,7 @@ const MainDrawerNavigator = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#078279',
+          height: 110
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -89,7 +90,7 @@ const MainDrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="ScreenerStack"
+        name="Screener"
         component={ScreenerNavigator}
         options={{
           drawerActiveTintColor: '#078279',
