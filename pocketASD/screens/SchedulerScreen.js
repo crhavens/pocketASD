@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button } from "react-native" ;
+import { View, Text, StyleSheet, Button, Alert } from "react-native" ;
 import { Calendar } from 'react-native-calendars';
 import { async } from '@firebase/util';
 import { setDoc, getDoc, doc } from 'firebase/firestore';
@@ -13,6 +13,7 @@ const SchedulerScreen = ({route}) => {
   const [cancelButton, setCancelButton] = useState()
   const today = getToday()
   const navigation = useNavigation()
+  const maxSelected = 3
 
   useEffect(() => {
     // pull appointment days from firebase
@@ -21,7 +22,7 @@ const SchedulerScreen = ({route}) => {
   }, []);
 
   useEffect(() =>{
-    if(route.params != null){
+    if(route.params != null && route.params.dates.length > 0){
       let dates = selectedDates.clear()
       setSelectedDates(dates)
       route.params.dates.forEach(item => {updateSelectedDates(item)})
@@ -49,40 +50,47 @@ const SchedulerScreen = ({route}) => {
     let dates = selectedDates;
     if (dates.has(date)){
       dates.delete(date)
-    }else if(dates.size < 3){
+    }else if(dates.size < maxSelected && date > today){
       dates.add(date)
     }
-    //console.log(dates)
     setSelectedDates(dates)
     const marked = {};
-    dates.forEach(date => (Object.assign(marked, {[date]: {selected: true, selectedColor: 'blue', disabled: false}})))
-    //console.log(marked)
+    dates.forEach(date => (Object.assign(marked, {[date]: {selected: true, selectedColor: 'blue', disabled: false, disableTouchEvent: false}})))
+
     setMarkedDates(marked)
   }
 
   const confirmDates = async () => {
     console.log(selectedDates)
-    const appointmentDateRequest = Array.from(selectedDates)
-    // Upload data to firebase
-    try {
-      const docRef = await setDoc(doc(db, "users", auth.currentUser.uid),
-      {
-        // data
-        appointmentDateRequest
-      },
-      {
-        merge: true
-      });
-      console.log("Document written succesfully.");
-      navigation.navigate('Confirmation',{dates: Array.from(selectedDates)})
+    if(selectedDates.size > 0){
+      const appointmentDateRequest = Array.from(selectedDates)
+      // Upload data to firebase
+      try {
+        const docRef = await setDoc(doc(db, "users", auth.currentUser.uid),
+        {
+          // data
+          appointmentDateRequest
+        },
+        {
+          merge: true
+        });
+        console.log("Document written succesfully.");
+        navigation.navigate('Confirmation',{dates: Array.from(selectedDates)})
+      }
+      catch(e) {
+        console.log("Error adding document: " , e);
+      }
     }
-    catch(e) {
-      console.log("Error adding document: " , e);
+    else{
+      //error pop up
+      Alert.alert('No Selected Dates', 'Please Select a Date', [
+        {text: 'OK'},
+      ]);
     }
   } 
 
   function disableDays(){
-    return selectedDates.size >= 3
+    return selectedDates.size >= maxSelected
   }
 
   function getToday(){
@@ -111,7 +119,6 @@ const SchedulerScreen = ({route}) => {
         markedDates={markedDates}
         disabledByDefault={disableDays()}
         disableAllTouchEventsForDisabledDays={disableDays()}
-        allowSelectionOutOfRange={disableDays()}
       />
       <Button onPress={confirmDates} title="Confirm Dates"/>
       {cancelButton}
